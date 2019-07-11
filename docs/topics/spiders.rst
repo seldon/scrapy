@@ -627,7 +627,7 @@ SitemapSpider
 
 .. class:: SitemapSpider
 
-    SitemapSpider allows you to crawl a site by discovering the URLs using
+    :class:`SitemapSpider` allows you to crawl a site by discovering the URLs using
     `Sitemaps`_.
 
     It supports nested sitemaps and discovering sitemap urls from
@@ -780,7 +780,7 @@ whose url contains ``/sitemap_shop``::
         def parse_shop(self, response):
             pass # ... scrape shop here ...
 
-Combine SitemapSpider with other sources of urls::
+Combine :class:`SitemapSpider` with other sources of urls::
 
     from scrapy.spiders import SitemapSpider
 
