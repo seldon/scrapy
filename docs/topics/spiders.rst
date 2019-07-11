@@ -182,7 +182,7 @@ scrapy.Spider
 
        This method, as well as any other Request callback, must return an
        iterable of :class:`~scrapy.http.Request` and/or
-       dicts or :class:`~scrapy.item.Item` objects.
+       dicts of :class:`~scrapy.item.Item` objects.
 
        :param response: the response to parse
        :type response: :class:`~scrapy.http.Response`
