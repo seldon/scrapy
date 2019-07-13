@@ -123,7 +123,7 @@ Since we're dealing with HTML, the selector will automatically use an HTML parse
 .. highlight:: python
 
 So, by looking at the :ref:`HTML code <topics-selectors-htmlcode>` of that
-page, let's construct an XPath for selecting the text inside the title tag::
+page, let's construct an XPath for selecting the text inside the ``title`` tag::
 
     >>> response.xpath('//title/text()')
     [<Selector xpath='//title/text()' data='Example website'>]
@@ -137,7 +137,7 @@ or ``.getall()`` methods, as follows::
     'Example website'
 
 ``.get()`` always returns a single result; if there are several matches,
-content of a first match is returned; if there are no matches, None
+content of the first match is returned; if there are no matches, ``None``
 is returned. ``.getall()`` returns a list with all results.
 
 Notice that CSS selectors can select text or attribute nodes using CSS3
@@ -166,7 +166,7 @@ previous Scrapy versions)::
 
 It returns ``None`` if no element was found::
 
-    >>> response.xpath('//div[@id="not-exists"]/text()').get() is None
+    >>> response.xpath('//div[@id="not-exists"]/text()').get() is ``None``
     True
 
 A default return value can be provided as an argument, to be used instead
@@ -185,7 +185,7 @@ using ``.attrib`` property of a :class:`~scrapy.selector.Selector`::
      'image4_thumb.jpg',
      'image5_thumb.jpg']
 
-As a shortcut, ``.attrib`` is also available on SelectorList directly;
+As a shortcut, ``.attrib`` is also available on :class:`~scrapy.selector.SelectorList` directly;
 it returns attributes for the first matching element::
 
     >>> response.css('img').attrib['src']
@@ -285,14 +285,14 @@ Examples:
     >>> response.css('img::text').getall()
     []
 
-  This means ``.css('foo::text').get()`` could return None even if an element
+  This means ``.css('foo::text').get()`` could return ``None`` even if an element
   exists. Use ``default=''`` if you always want a string::
 
     >>> response.css('img::text').get()
     >>> response.css('img::text').get(default='')
     ''
 
-* ``a::attr(href)`` selects the *href* attribute value of descendant links::
+* ``a::attr(href)`` selects the ``href`` attribute value of descendant links::
 
     >>> response.css('a::attr(href)').getall()
     ['image1.html',
@@ -343,7 +343,7 @@ too. Here's an example::
 Selecting element attributes
 ----------------------------
 
-There are several ways to get a value of an attribute. First, one can use
+There are several ways to get the value of an attribute. First, one can use
 XPath syntax::
 
     >>> response.xpath("//a/@href").getall()
@@ -366,17 +366,17 @@ code, without using XPaths or CSS extensions::
     >>> [a.attrib['href'] for a in response.css('a')]
     ['image1.html', 'image2.html', 'image3.html', 'image4.html', 'image5.html']
 
-This property is also available on SelectorList; it returns a dictionary
+This property is also available on :class:`~scrapy.selector.SelectorList`; it returns a dictionary
 with attributes of a first matching element. It is convenient to use when
 a selector is expected to give a single result (e.g. when selecting by element
-ID, or when selecting an unique element on a page)::
+ID, or when selecting a unique element on a page)::
 
     >>> response.css('base').attrib
     {'href': 'http://example.com/'}
     >>> response.css('base').attrib['href']
     'http://example.com/'
 
-``.attrib`` property of an empty SelectorList is empty::
+``.attrib`` property of an empty :class:`~scrapy.selector.SelectorList` is empty::
 
     >>> response.css('foo').attrib
     {}
@@ -511,7 +511,7 @@ When querying by class, consider using CSS
 ------------------------------------------
 
 Because an element can contain multiple CSS classes, the XPath way to select elements
-by class is the rather verbose::
+by class is rather verbose::
 
     *[contains(concat(' ', normalize-space(@class), ' '), ' someclass ')]
 
@@ -520,7 +520,7 @@ other classes, and if you just use ``contains(@class, 'someclass')`` to make up
 for that you may end up with more elements that you want, if they have a different
 class name that shares the string ``someclass``.
 
-As it turns out, Scrapy selectors allow you to chain selectors, so most of the time
+As it turns out, Scrapy allows you to chain selectors, so most of the time
 you can just select by class using CSS and then switch to XPath when needed::
 
     >>> from scrapy import Selector
@@ -554,7 +554,7 @@ Example::
     ....:     </ul>""")
     >>> xp = lambda x: sel.xpath(x).getall()
 
-This gets all first ``<li>``  elements under whatever it is its parent::
+This gets all first ``<li>``  elements under whatever it is their parent::
 
     >>> xp("//li[1]")
     ['<li>1</li>', '<li>4</li>']
@@ -626,14 +626,14 @@ queries or prepared statements in the SQL world where you replace
 some arguments in your queries with placeholders like ``?``,
 which are then substituted with values passed with the query.
 
-Here's an example to match an element based on its "id" attribute value,
+Here's an example to match an element based on its ``id`` attribute value,
 without hard-coding it (that was shown previously)::
 
     >>> # `$val` used in the expression, a `val` argument needs to be passed
     >>> response.xpath('//div[@id=$val]/a/text()', val='images').get()
     'Name: My image 1 '
 
-Here's another example, to find the "id" attribute of a ``<div>`` tag containing
+Here's another example, to find the ``id`` attribute of a ``<div>`` tag containing
 five ``<a>`` children (here we pass the value ``5`` as an integer)::
 
     >>> response.xpath('//div[count(a)=$cnt]/@id', cnt=5).get()
@@ -681,7 +681,7 @@ This is how the file starts::
       ...
 
 You can see several namespace declarations including a default
-"http://www.w3.org/2005/Atom" and another one using the "gd:" prefix for
+"http://www.w3.org/2005/Atom" and another one using the `gd:` prefix for
 "http://schemas.google.com/g/2005".
 
 .. highlight:: python
@@ -707,7 +707,7 @@ of relevance, are:
 
 1. Removing namespaces requires to iterate and modify all nodes in the
    document, which is a reasonably expensive operation to perform by default
-   for all documents crawled by Scrapy
+   for all documents crawled by Scrapy;
 
 2. There could be some cases where using namespaces is actually required, in
    case some element names clash between namespaces. These cases are very rare
@@ -888,7 +888,7 @@ You can use it like this::
     []
 
 So XPath ``//p[has-class("foo", "bar-baz")]`` is roughly equivalent to CSS
-``p.foo.bar-baz``.  Please note, that it is slower in most of the cases,
+``p.foo.bar-baz``.  Please note that it is slower in most of the cases,
 because it's a pure-Python function that's invoked for every node in question
 whereas the CSS lookup is translated into XPath and thus runs more efficiently,
 so performance-wise its uses are limited to situations that are not easily
@@ -945,7 +945,7 @@ Selector objects
   .. automethod:: getall
 
      This method is added to Selector for consistency; it is more useful
-     with SelectorList. See also: :ref:`old-extraction-api`
+     with :class:`~scrapy.selector.SelectorList`. See also: :ref:`old-extraction-api`
 
 SelectorList objects
 --------------------
