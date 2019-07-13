@@ -292,20 +292,20 @@ ItemLoader objects
 
     :param item: The item instance to populate using subsequent calls to
         :meth:`~ItemLoader.add_xpath`, :meth:`~ItemLoader.add_css`,
-        or :meth:`~ItemLoader.add_value`.
+        or :meth:`~ItemLoader.add_value`;
     :type item: :class:`~scrapy.item.Item` object
 
     :param selector: The selector to extract data from, when using the
         :meth:`add_xpath` (resp. :meth:`add_css`) or :meth:`replace_xpath`
-        (resp. :meth:`replace_css`) method.
+        (resp. :meth:`replace_css`) method;
     :type selector: :class:`~scrapy.selector.Selector` object
 
     :param response: The response used to construct the selector using the
-        :attr:`default_selector_class`, unless the selector argument is given,
+        :attr:`default_selector_class`, unless the ``selector`` argument is given,
         in which case this argument is ignored.
     :type response: :class:`~scrapy.http.Response` object
 
-    The item, selector, response and the remaining keyword arguments are
+    The ``item``, ``selector``, ``response`` and the remaining keyword arguments are
     assigned to the Loader context (accessible through the :attr:`context` attribute).
 
     :class:`ItemLoader` instances have the following methods:
@@ -319,7 +319,7 @@ ItemLoader objects
 
         :param re: a regular expression to use for extracting data from the
             given value using :meth:`~scrapy.utils.misc.extract_regex` method,
-            applied before processors
+            applied before processors.
         :type re: str or compiled regex
 
         Examples::
@@ -339,8 +339,8 @@ ItemLoader objects
         contains collected data, the new data is added.
 
         The given ``field_name`` can be ``None``, in which case values for
-        multiple fields may be added. And the processed value should be a dict
-        with field_name mapped to values.
+        multiple fields may be added, and the processed value should be a dict
+        with ``field_name`` mapped to values.
 
         Examples::
 
@@ -538,7 +538,7 @@ Example::
         <a class="email" href="mailto:whatever@example.com">Email Us</a>
     </footer>
 
-Without nested loaders, you need to specify the full xpath (or css) for each value
+Without nested loaders, you need to specify the full XPath (or CSS) for each value
 that you wish to extract.
 
 Example::
@@ -563,7 +563,7 @@ Example::
     # no need to call footer_loader.load_item()
     loader.load_item()
 
-You can nest loaders arbitrarily and they work with either xpath or css selectors.
+You can nest loaders arbitrarily and they work with either XPath or CSS selectors.
 As a general guideline, use nested loaders when they make your code simpler but do
 not go overboard with nesting or your parser can become difficult to read.
 
@@ -754,7 +754,7 @@ Here is a list of all built-in processors:
 
 .. class:: SelectJmes(json_path)
 
-    Queries the value using the json path provided to the constructor and returns the output.
+    Queries the value using the JSON path provided to the constructor and returns the output.
     Requires jmespath (https://github.com/jmespath/jmespath.py) to run.
     This processor takes only one input at a time.
 
@@ -767,7 +767,7 @@ Here is a list of all built-in processors:
         >>> proc({'foo': {'bar': 'baz'}})
         {'bar': 'baz'}
 
-    Working with Json::
+    Working with JSON::
 
         >>> import json
         >>> proc_single_json_str = Compose(json.loads, SelectJmes("foo"))
