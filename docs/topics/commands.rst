@@ -453,16 +453,16 @@ Supported options:
 
 * ``--spider=SPIDER``: bypass spider autodetection and force use of specific spider
 
-* ``--a NAME=VALUE``: set spider argument (may be repeated)
+* ``-a NAME=VALUE``: set spider argument (may be repeated)
 
 * ``--callback`` or ``-c``: spider method to use as callback for parsing the
   response
 
 * ``--meta`` or ``-m``: additional request meta that will be passed to the callback 
-  request. This must be a valid json string. Example: --meta='{"foo" : "bar"}'
+  request. This must be a valid JSON string. Example: ``--meta='{"foo" : "bar"}'``
 
 * ``--cbkwargs``: additional keyword arguments that will be passed to the callback.
-  This must be a valid json string. Example: --cbkwargs='{"foo" : "bar"}'
+  This must be a valid JSON string. Example: ``--cbkwargs='{"foo" : "bar"}'``
 
 * ``--pipelines``: process items through pipelines
 
