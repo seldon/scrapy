@@ -14,15 +14,15 @@ typically you'll either use the Files Pipeline or the Images Pipeline.
 
 Both pipelines implement these features:
 
-* Avoid re-downloading media that was downloaded recently
+* Avoid re-downloading media that was downloaded recently;
 * Specifying where to store the media (filesystem directory, Amazon S3 bucket,
-  Google Cloud Storage bucket)
+  Google Cloud Storage bucket).
 
 The Images Pipeline has a few extra functions for processing images:
 
-* Convert all downloaded images to a common format (JPG) and mode (RGB)
-* Thumbnail generation
-* Check images width/height to make sure they meet a minimum constraint
+* Convert all downloaded images to a common format (JPG) and mode (RGB);
+* Thumbnail generation;
+* Check images width/height to make sure they meet a minimum constraint.
 
 The pipelines also keep an internal queue of those media URLs which are currently
 being scheduled for download, and connect those responses that arrive containing
@@ -35,17 +35,17 @@ Using the Files Pipeline
 The typical workflow, when using the :class:`FilesPipeline` goes like
 this:
 
-1. In a Spider, you scrape an item and put the URLs of the desired into a
-   ``file_urls`` field.
+1. In a Spider, you scrape an item and put the URLs of the desidered files into a
+   ``file_urls`` field;
 
-2. The item is returned from the spider and goes to the item pipeline.
+2. The item is returned from the spider and goes to the item pipeline;
 
 3. When the item reaches the :class:`FilesPipeline`, the URLs in the
    ``file_urls`` field are scheduled for download using the standard
    Scrapy scheduler and downloader (which means the scheduler and downloader
    middlewares are reused), but with a higher priority, processing them before other
    pages are scraped. The item remains "locked" at that particular pipeline stage
-   until the files have finish downloading (or fail for some reason).
+   until the files have finish downloading (or fail for some reason);
 
 4. When the files are downloaded, another field (``files``) will be populated
    with the results. This field will contain a list of dicts with information
@@ -117,7 +117,7 @@ For the Images Pipeline, set the :setting:`IMAGES_STORE` setting::
 Supported Storage
 =================
 
-File system is currently the only officially supported storage, but there are
+File system is currently the only officially supported storage, but there is
 also support for storing files in `Amazon S3`_ and `Google Cloud Storage`_.
 
 .. _Amazon S3: https://aws.amazon.com/s3/
@@ -132,18 +132,18 @@ For example, the following image URL::
 
     http://www.example.com/image.jpg
 
-Whose ``SHA1 hash`` is::
+whose ``SHA1 hash`` is::
 
     3afec3b4765f8f0a07b78f98c07b83f013567a0a
 
-Will be downloaded and stored in the following file::
+will be downloaded and stored in the following file::
 
    <IMAGES_STORE>/full/3afec3b4765f8f0a07b78f98c07b83f013567a0a.jpg
 
-Where:
+where:
 
 * ``<IMAGES_STORE>`` is the directory defined in :setting:`IMAGES_STORE` setting
-  for the Images Pipeline.
+  for the Images Pipeline;
 
 * ``full`` is a sub-directory to separate full images from thumbnails (if
   used). For more info see :ref:`topics-images-thumbnails`.
@@ -172,7 +172,7 @@ policy::
 For more information, see `canned ACLs`_ in the Amazon S3 Developer Guide.
 
 Because Scrapy uses ``boto`` / ``botocore`` internally you can also use other S3-like storages. Storages like
-self-hosted `Minio`_ or `s3.scality`_. All you need to do is set endpoint option in you Scrapy settings::
+self-hosted `Minio`_ or `s3.scality`_. All you need to do is setting the ``AWS_ENDPOINT_URL``  option in your Scrapy settings::
 
     AWS_ENDPOINT_URL = 'http://minio.example.com:9000'
 
@@ -193,7 +193,7 @@ Google Cloud Storage
 .. setting:: IMAGES_STORE_GCS_ACL
 
 :setting:`FILES_STORE` and :setting:`IMAGES_STORE` can represent a Google Cloud Storage
-bucket. Scrapy will automatically upload the files to the bucket. (requires `google-cloud-storage`_ )
+bucket. Scrapy will automatically upload the files to the bucket (requires `google-cloud-storage`_ ).
 
 .. _google-cloud-storage: https://cloud.google.com/storage/docs/reference/libraries#client-libraries-install-python
 
@@ -209,8 +209,8 @@ For information about authentication, see this `documentation`_.
 You can modify the Access Control List (ACL) policy used for the stored files,
 which is defined by the :setting:`FILES_STORE_GCS_ACL` and
 :setting:`IMAGES_STORE_GCS_ACL` settings. By default, the ACL is set to
-``''`` (empty string) which means that Cloud Storage applies the bucket's default object ACL to the object.
-To make the files publicly available use the ``publicRead``
+``''`` (empty string) which means that Google Cloud Storage applies the bucket's default object ACL to the object.
+To make the files publicly available, use the ``publicRead``
 policy::
 
     IMAGES_STORE_GCS_ACL = 'publicRead'
@@ -263,11 +263,11 @@ For the Images Pipeline, set :setting:`IMAGES_URLS_FIELD` and/or
 If you need something more complex and want to override the custom pipeline
 behaviour, see :ref:`topics-media-pipeline-override`.
 
-If you have multiple image pipelines inheriting from ImagePipeline and you want
-to have different settings in different pipelines you can set setting keys
-preceded with uppercase name of your pipeline class. E.g. if your pipeline is
-called MyPipeline and you want to have custom IMAGES_URLS_FIELD you define
-setting MYPIPELINE_IMAGES_URLS_FIELD and your custom settings will be used.
+If you have multiple image pipelines inheriting from :class:`ImagePipeline` and you want
+to have different settings in different pipelines, you can set setting keys
+preceded with the uppercase name of your pipeline class. E.g. if your pipeline is
+called :class:`MyPipeline` and you want to have custom :setting:`IMAGES_URLS_FIELD` you define
+the setting  :setting:`MYPIPELINE_IMAGES_URLS_FIELD` and your custom settings will be used.
 
 
 Additional features
@@ -292,13 +292,13 @@ specifies the delay in number of days::
 
 The default value for both settings is 90 days.
 
-If you have pipeline that subclasses FilesPipeline and you'd like to have
-different setting for it you can set setting keys preceded by uppercase
-class name. E.g. given pipeline class called MyPipeline you can set setting key:
+If you have pipeline that subclasses :class:`FilesPipeline` and you'd like to have
+different setting for it you can set setting keys preceded by the uppercase
+class name. E.g. given pipeline class called :class:`MyPipeline` you can set setting key::
 
     MYPIPELINE_FILES_EXPIRES = 180
 
-and pipeline class MyPipeline will have expiration time set to 180.
+and pipeline class :class:`MyPipeline` will have expiration time set to 180 days.
 
 .. _topics-images-thumbnails:
 
@@ -320,7 +320,7 @@ For example::
        'big': (270, 270),
    }
 
-When you use this feature, the Images Pipeline will create thumbnails of the
+When you use this feature, the Images Pipeline will create thumbnails of 
 each specified size with this format::
 
     <IMAGES_STORE>/thumbs/<size_name>/<image_id>.jpg
@@ -328,9 +328,9 @@ each specified size with this format::
 Where:
 
 * ``<size_name>`` is the one specified in the :setting:`IMAGES_THUMBS`
-  dictionary keys (``small``, ``big``, etc)
+  dictionary keys (``small``, ``big``, etc);
 
-* ``<image_id>`` is the `SHA1 hash`_ of the image url
+* ``<image_id>`` is the `SHA1 hash`_ of the image url.
 
 .. _SHA1 hash: https://en.wikipedia.org/wiki/SHA_hash_functions
 
@@ -439,19 +439,19 @@ See here the methods that you can override in your custom Files Pipeline:
       Each tuple will contain ``(success, file_info_or_error)`` where:
 
       * ``success`` is a boolean which is ``True`` if the image was downloaded
-        successfully or ``False`` if it failed for some reason
+        successfully or ``False`` if it failed for some reason;
 
       * ``file_info_or_error`` is a dict containing the following keys (if success
-        is ``True``) or a `Twisted Failure`_ if there was a problem.
+        is ``True``) or a `Twisted Failure`_ if there was a problem:
 
-        * ``url`` - the url where the file was downloaded from. This is the url of
+        * ``url`` - the URL where the file was downloaded from. This is the URL of
           the request returned from the :meth:`~get_media_requests`
-          method.
+          method;
 
         * ``path`` - the path (relative to :setting:`FILES_STORE`) where the file
-          was stored
+          was stored;
 
-        * ``checksum`` - a `MD5 hash`_ of the image contents
+        * ``checksum`` - a `MD5 hash`_ of the image contents.
 
       The list of tuples received by :meth:`~item_completed` is
       guaranteed to retain the same order of the requests returned from the
@@ -538,7 +538,7 @@ See here the methods that you can override in your custom Images Pipeline:
    .. method:: ImagesPipeline.get_media_requests(item, info)
 
       Works the same way as :meth:`FilesPipeline.get_media_requests` method,
-      but using a different field name for image urls.
+      but using a different field name for image URLs.
 
       Must return a Request for each image URL.
 
