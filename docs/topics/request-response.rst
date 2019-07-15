@@ -30,38 +30,38 @@ Request objects
     generated in the Spider and executed by the Downloader, and thus generating
     a :class:`Response`.
 
-    :param url: the URL of this request
+    :param url: the URL of this request;
     :type url: string
 
     :param callback: the function that will be called with the response of this
-       request (once its downloaded) as its first parameter. For more information
+       request (once it's downloaded) as its first parameter. For more information
        see :ref:`topics-request-response-ref-request-callback-arguments` below.
        If a Request doesn't specify a callback, the spider's
        :meth:`~scrapy.spiders.Spider.parse` method will be used.
-       Note that if exceptions are raised during processing, errback is called instead.
+       Note that if exceptions are raised during processing, errback is called instead;
 
     :type callback: callable
 
-    :param method: the HTTP method of this request. Defaults to ``'GET'``.
+    :param method: the HTTP method of this request. Defaults to ``'GET'``;
     :type method: string
 
     :param meta: the initial values for the :attr:`Request.meta` attribute. If
-       given, the dict passed in this parameter will be shallow copied.
+       given, the dict passed in this parameter will be shallow copied;
     :type meta: dict
 
     :param body: the request body. If a ``unicode`` is passed, then it's encoded to
       ``str`` using the ``encoding`` passed (which defaults to ``utf-8``). If
       ``body`` is not given, an empty string is stored. Regardless of the
       type of this argument, the final value stored will be a ``str`` (never
-      ``unicode`` or ``None``).
+      ``unicode`` or ``None``);
     :type body: str or unicode
 
     :param headers: the headers of this request. The dict values can be strings
        (for single valued headers) or lists (for multi-valued headers). If
-       ``None`` is passed as value, the HTTP header will not be sent at all.
+       ``None`` is passed as value, the HTTP header will not be sent at all;
     :type headers: dict
 
-    :param cookies: the request cookies. These can be sent in two forms.
+    :param cookies: the request cookies. These can be sent in two forms:
 
         1. Using a dict::
 
@@ -78,7 +78,7 @@ Request objects
 
         The latter form allows for customizing the ``domain`` and ``path``
         attributes of the cookie. This is only useful if the cookies are saved
-        for later requests.
+        for later requests;
 
         .. reqmeta:: dont_merge_cookies
 
@@ -86,7 +86,7 @@ Request objects
         cookies for that domain and will be sent again in future requests. That's
         the typical behaviour of any regular web browser. However, if, for some
         reason, you want to avoid merging with existing cookies you can instruct
-        Scrapy to do so by setting the ``dont_merge_cookies`` key to True in the
+        Scrapy to do so by setting the ``dont_merge_cookies`` key to ``True`` in the
         :attr:`Request.meta`.
 
         Example of request without merging cookies::
@@ -95,24 +95,24 @@ Request objects
                                            cookies={'currency': 'USD', 'country': 'UY'},
                                            meta={'dont_merge_cookies': True})
 
-        For more info see :ref:`cookies-mw`.
+        For more info see :ref:`cookies-mw`;
     :type cookies: dict or list
 
     :param encoding: the encoding of this request (defaults to ``'utf-8'``).
        This encoding will be used to percent-encode the URL and to convert the
-       body to ``str`` (if given as ``unicode``).
+       body to ``str`` (if given as ``unicode``);
     :type encoding: string
 
     :param priority: the priority of this request (defaults to ``0``).
        The priority is used by the scheduler to define the order used to process
        requests.  Requests with a higher priority value will execute earlier.
-       Negative values are allowed in order to indicate relatively low-priority.
+       Negative values are allowed in order to indicate relatively low-priority;
     :type priority: int
 
     :param dont_filter: indicates that this request should not be filtered by
        the scheduler. This is used when you want to perform an identical
        request multiple times, to ignore the duplicates filter. Use it with
-       care, or you will get into crawling loops. Default to ``False``.
+       care, or you will get into crawling loops. Default to ``False``;
     :type dont_filter: boolean
 
     :param errback: a function that will be called if any exception was
@@ -120,13 +120,13 @@ Request objects
        with 404 HTTP errors and such. It receives a `Twisted Failure`_ instance
        as first parameter.
        For more information,
-       see :ref:`topics-request-response-ref-errbacks` below.
+       see :ref:`topics-request-response-ref-errbacks` below;
     :type errback: callable
 
-    :param flags:  Flags sent to the request, can be used for logging or similar purposes.
+    :param flags:  Flags sent to the request, can be used for logging or similar purposes;
     :type flags: list
 
-    :param cb_kwargs: A dict with arbitrary data that will be passed as keyword arguments to the Request's callback.
+    :param cb_kwargs: A dict with arbitrary data that will be passed as keyword arguments to the Request's callback;
     :type cb_kwargs: dict
 
     .. attribute:: Request.url
@@ -136,23 +136,23 @@ Request objects
         the constructor.
 
         This attribute is read-only. To change the URL of a Request use
-        :meth:`replace`.
+        :meth:`replace`;
 
     .. attribute:: Request.method
 
         A string representing the HTTP method in the request. This is guaranteed to
-        be uppercase. Example: ``"GET"``, ``"POST"``, ``"PUT"``, etc
+        be uppercase. Example: ``"GET"``, ``"POST"``, ``"PUT"``, etc.;
 
     .. attribute:: Request.headers
 
-        A dictionary-like object which contains the request headers.
+        A dictionary-like object which contains the request headers;
 
     .. attribute:: Request.body
 
         A str that contains the request body.
 
         This attribute is read-only. To change the body of a Request use
-        :meth:`replace`.
+        :meth:`replace`;
 
     .. attribute:: Request.meta
 
@@ -166,7 +166,7 @@ Request objects
 
         This dict is `shallow copied`_ when the request is cloned using the
         ``copy()`` or ``replace()`` methods, and can also be accessed, in your
-        spider, from the ``response.meta`` attribute.
+        spider, from the ``response.meta`` attribute;
 
     .. attribute:: Request.cb_kwargs
 
@@ -177,14 +177,14 @@ Request objects
 
         This dict is `shallow copied`_ when the request is cloned using the
         ``copy()`` or ``replace()`` methods, and can also be accessed, in your
-        spider, from the ``response.cb_kwargs`` attribute.
+        spider, from the ``response.cb_kwargs`` attribute;
 
     .. _shallow copied: https://docs.python.org/2/library/copy.html
 
     .. method:: Request.copy()
 
        Return a new Request which is a copy of this Request. See also:
-       :ref:`topics-request-response-ref-request-callback-arguments`.
+       :ref:`topics-request-response-ref-request-callback-arguments`;
 
     .. method:: Request.replace([url, method, headers, body, cookies, meta, flags, encoding, priority, dont_filter, callback, errback, cb_kwargs])
 
@@ -246,7 +246,7 @@ Using errbacks to catch exceptions in request processing
 --------------------------------------------------------
 
 The errback of a request is a function that will be called when an exception
-is raise while processing it.
+is raised while processing it.
 
 It receives a `Twisted Failure`_ instance as first parameter and can be
 used to track connection establishment timeouts, DNS errors etc.
@@ -307,7 +307,7 @@ errors if needed::
 Request.meta special keys
 =========================
 
-The :attr:`Request.meta` attribute can contain any arbitrary data, but there
+The :attr:`Request.meta` attribute can contain arbitrary data, but there
 are some special keys recognized by Scrapy and its built-in extensions.
 
 Those are:
@@ -338,7 +338,7 @@ Those are:
 bindaddress
 -----------
 
-The IP of the outgoing IP address to use for the performing the request.
+The outgoing IP address to use for performing the request.
 
 .. reqmeta:: download_timeout
 
