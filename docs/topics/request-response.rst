@@ -371,7 +371,7 @@ Whether or not to fail on broken responses. See:
 max_retry_times
 ---------------
 
-The meta key is used set retry times per request. When initialized, the
+This meta key is used to set retry times per request. When initialized, the
 :reqmeta:`max_retry_times` meta key takes higher precedence over the
 :setting:`RETRY_TIMES` setting.
 
@@ -386,7 +386,7 @@ it to implement your own custom functionality.
 FormRequest objects
 -------------------
 
-The FormRequest class extends the base :class:`Request` with functionality for
+The :class:`FormRequest` class extends the base :class:`Request` with functionality for
 dealing with HTML forms. It uses `lxml.html forms`_  to pre-populate form
 fields with form data from :class:`Response` objects.
 
@@ -398,12 +398,12 @@ fields with form data from :class:`Response` objects.
     remaining arguments are the same as for the :class:`Request` class and are
     not documented here.
 
-    :param formdata: is a dictionary (or iterable of (key, value) tuples)
-       containing HTML Form data which will be url-encoded and assigned to the
+    :param formdata: a dictionary (or iterable of (key, value) tuples)
+       containing HTML Form data which will be URL-encoded and assigned to the
        body of the request.
     :type formdata: dict or iterable of tuples
 
-    The :class:`FormRequest` objects support the following class method in
+    :class:`FormRequest` objects support the following class method in
     addition to the standard :class:`Request` methods:
 
     .. classmethod:: FormRequest.from_response(response, [formname=None, formid=None, formnumber=0, formdata=None, formxpath=None, formcss=None, clickdata=None, dont_click=False, ...])
@@ -414,55 +414,55 @@ fields with form data from :class:`Response` objects.
        :ref:`topics-request-response-ref-request-userlogin`.
 
        The policy is to automatically simulate a click, by default, on any form
-       control that looks clickable, like a ``<input type="submit">``.  Even
+       control that looks clickable, like a ``<input type="submit">``. Even
        though this is quite convenient, and often the desired behaviour,
        sometimes it can cause problems which could be hard to debug. For
        example, when working with forms that are filled and/or submitted using
-       javascript, the default :meth:`from_response` behaviour may not be the
+       JavaScript, the default :meth:`from_response` behaviour may not be the
        most appropriate. To disable this behaviour you can set the
        ``dont_click`` argument to ``True``. Also, if you want to change the
        control clicked (instead of disabling it) you can also use the
        ``clickdata`` argument.
 
-       .. caution:: Using this method with select elements which have leading
+       .. caution:: Using this method with ``select`` elements which have leading
           or trailing whitespace in the option values will not work due to a
           `bug in lxml`_, which should be fixed in lxml 3.8 and above.
 
-       :param response: the response containing a HTML form which will be used
-          to pre-populate the form fields
+       :param response: the response containing an HTML form which will be used
+          to pre-populate the form fields;
        :type response: :class:`Response` object
 
-       :param formname: if given, the form with name attribute set to this value will be used.
+       :param formname: if given, the form with ``name`` attribute set to this value will be used;
        :type formname: string
 
-       :param formid: if given, the form with id attribute set to this value will be used.
+       :param formid: if given, the form with ``id`` attribute set to this value will be used;
        :type formid: string
 
-       :param formxpath: if given, the first form that matches the xpath will be used.
+       :param formxpath: if given, the first form that matches the XPath will be used;
        :type formxpath: string
 
-       :param formcss: if given, the first form that matches the css selector will be used.
+       :param formcss: if given, the first form that matches the CSS selector will be used;
        :type formcss: string
 
        :param formnumber: the number of form to use, when the response contains
-          multiple forms. The first one (and also the default) is ``0``.
+          multiple forms. The first one (and also the default) is ``0``;
        :type formnumber: integer
 
        :param formdata: fields to override in the form data. If a field was
           already present in the response ``<form>`` element, its value is
           overridden by the one passed in this parameter. If a value passed in
           this parameter is ``None``, the field will not be included in the
-          request, even if it was present in the response ``<form>`` element.
+          request, even if it was present in the response ``<form>`` element;
        :type formdata: dict
 
        :param clickdata: attributes to lookup the control clicked. If it's not
          given, the form data will be submitted simulating a click on the
-         first clickable element. In addition to html attributes, the control
+         first clickable element. In addition to HTML attributes, the control
          can be identified by its zero-based index relative to other
-         submittable inputs inside the form, via the ``nr`` attribute.
+         submittable inputs inside the form, via the ``nr`` attribute;
        :type clickdata: dict
 
-       :param dont_click: If True, the form data will be submitted without
+       :param dont_click: If ``True``, the form data will be submitted without
          clicking in any element.
        :type dont_click: boolean
 
@@ -501,7 +501,7 @@ Using FormRequest.from_response() to simulate a user login
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 It is usual for web sites to provide pre-populated form fields through ``<input
-type="hidden">`` elements, such as session related data or authentication
+type="hidden">`` elements, such as session-related data or authentication
 tokens (for login pages). When scraping, you'll want these fields to be
 automatically pre-populated and only override a couple of them, such as the
 user name and password. You can use the :meth:`FormRequest.from_response`
