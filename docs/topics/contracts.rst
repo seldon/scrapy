@@ -10,11 +10,11 @@ Spiders Contracts
    to minor functionality/API updates. Check the :ref:`release notes <news>` to
    be notified of updates.
 
-Testing spiders can get particularly annoying and while nothing prevents you
-from writing unit tests the task gets cumbersome quickly. Scrapy offers an
+Testing spiders can get particularly annoying: while nothing prevents you
+from writing unit tests, the task gets quickly cumbersome. Scrapy offers an
 integrated way of testing your spiders by the means of contracts.
 
-This allows you to test each callback of your spider by hardcoding a sample url
+This allows you to test each callback of your spider by hardcoding a sample URL
 and check various constraints for how the callback processes the response. Each
 contract is prefixed with an ``@`` and included in the docstring. See the
 following example::
@@ -35,11 +35,11 @@ This callback is tested using three built-in contracts:
 
 .. class:: UrlContract
 
-    This contract (``@url``) sets the sample url used when checking other
+    This contract (``@url``) sets the sample URL used when checking other
     contract conditions for this spider. This contract is mandatory. All
     callbacks lacking this contract are ignored when running the checks::
 
-    @url url
+    @url URL
 
 .. class:: ReturnsContract
 
