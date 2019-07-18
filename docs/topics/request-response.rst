@@ -580,42 +580,42 @@ Response objects
     A :class:`Response` object represents an HTTP response, which is usually
     downloaded (by the Downloader) and fed to the Spiders for processing.
 
-    :param url: the URL of this response
+    :param url: the URL of this response;
     :type url: string
 
-    :param status: the HTTP status of the response. Defaults to ``200``.
+    :param status: the HTTP status of the response. Defaults to ``200``;
     :type status: integer
 
     :param headers: the headers of this response. The dict values can be strings
-       (for single valued headers) or lists (for multi-valued headers).
+       (for single-valued headers) or lists (for multi-valued headers);
     :type headers: dict
 
     :param body: the response body. To access the decoded text as str (unicode
        in Python 2) you can use ``response.text`` from an encoding-aware
        :ref:`Response subclass <topics-request-response-ref-response-subclasses>`,
-       such as :class:`TextResponse`.
+       such as :class:`TextResponse`;
     :type body: bytes
 
-    :param flags: is a list containing the initial values for the
+    :param flags: a list containing the initial values for the
        :attr:`Response.flags` attribute. If given, the list will be shallow
-       copied.
+       copied;
     :type flags: list
 
     :param request: the initial value of the :attr:`Response.request` attribute.
-        This represents the :class:`Request` that generated this response.
+        This represents the :class:`Request` that generated this response;
     :type request: :class:`Request` object
 
     .. attribute:: Response.url
 
         A string containing the URL of the response.
 
-        This attribute is read-only. To change the URL of a Response use
-        :meth:`replace`.
+        This attribute is read-only. To change the URL of a :class:`Response` use
+        :meth:`replace`;
 
     .. attribute:: Response.status
 
         An integer representing the HTTP status of the response. Example: ``200``,
-        ``404``.
+        ``404``;
 
     .. attribute:: Response.headers
 
@@ -629,13 +629,13 @@ Response objects
 
     .. attribute:: Response.body
 
-        The body of this Response. Keep in mind that Response.body
+        The body of this Response. Keep in mind that :attr:`Response.body`
         is always a bytes object. If you want the unicode version use
         :attr:`TextResponse.text` (only available in :class:`TextResponse`
         and subclasses).
 
-        This attribute is read-only. To change the body of a Response use
-        :meth:`replace`.
+        This attribute is read-only. To change the body of a :class:`Response` use
+        :meth:`replace`;
 
     .. attribute:: Response.request
 
@@ -646,14 +646,14 @@ Response objects
 
         - HTTP redirections will cause the original request (to the URL before
           redirection) to be assigned to the redirected response (with the final
-          URL after redirection).
+          URL after redirection);
 
-        - Response.request.url doesn't always equal Response.url
+        - :attr:`Response.request.url` doesn't always equal :attr:`Response.url`
 
         - This attribute is only available in the spider code, and in the
           :ref:`Spider Middlewares <topics-spider-middleware>`, but not in
-          Downloader Middlewares (although you have the Request available there by
-          other means) and handlers of the :signal:`response_downloaded` signal.
+          Downloader Middlewares (although you have the :class:`Request` available there by
+          other means) and handlers of the :signal:`response_downloaded` signal;
 
     .. attribute:: Response.meta
 
@@ -669,26 +669,26 @@ Response objects
     .. attribute:: Response.flags
 
         A list that contains flags for this response. Flags are labels used for
-        tagging Responses. For example: ``'cached'``, ``'redirected``', etc. And
-        they're shown on the string representation of the Response (`__str__`
-        method) which is used by the engine for logging.
+        tagging Responses. For example: ``'cached'``, ``'redirected``', etc. 
+        They're shown on the string representation of the :class:`Response` (``__str__``
+        method) which is used by the engine for logging;
 
     .. method:: Response.copy()
 
-       Returns a new Response which is a copy of this Response.
+       Returns a new :class:`Response` which is a copy of this :class:`Response`;
 
     .. method:: Response.replace([url, status, headers, body, request, flags, cls])
 
-       Returns a Response object with the same members, except for those members
+       Returns a :class:`Response` object with the same members, except for those members
        given new values by whichever keyword arguments are specified. The
-       attribute :attr:`Response.meta` is copied by default.
+       attribute :attr:`Response.meta` is copied by default;
 
     .. method:: Response.urljoin(url)
 
-        Constructs an absolute url by combining the Response's :attr:`url` with
-        a possible relative url.
+        Constructs an absolute URL by combining the Response's :attr:`url` with
+        a possible relative URL;
 
-        This is a wrapper over `urlparse.urljoin`_, it's merely an alias for
+        This is a wrapper over `urlparse.urljoin`_; it's merely an alias for
         making this call::
 
             urlparse.urljoin(response.url, url)
@@ -703,8 +703,8 @@ Response objects
 Response subclasses
 ===================
 
-Here is the list of available built-in Response subclasses. You can also
-subclass the Response class to implement your own functionality.
+Here is the list of available built-in :class:`Response` subclasses. You can also
+subclass the :class:`Response` class to implement your own functionality.
 
 TextResponse objects
 --------------------
@@ -719,7 +719,7 @@ TextResponse objects
     addition to the base :class:`Response` objects. The remaining functionality
     is the same as for the :class:`Response` class and is not documented here.
 
-    :param encoding: is a string which contains the encoding to use for this
+    :param encoding: a string which contains the encoding to use for this
        response. If you create a :class:`TextResponse` object with a unicode
        body, it will be encoded using this encoding (remember the body attribute
        is always a string). If ``encoding`` is ``None`` (default value), the
@@ -735,13 +735,13 @@ TextResponse objects
 
        The same as ``response.body.decode(response.encoding)``, but the
        result is cached after the first call, so you can access
-       ``response.text`` multiple times without extra overhead.
+       ``response.text`` multiple times without extra overhead;
 
        .. note::
 
             ``unicode(response.body)`` is not a correct way to convert response
             body to unicode: you would be using the system default encoding
-            (typically ``ascii``) instead of the response encoding.
+            (typically ``ASCII``) instead of the response encoding.
 
 
     .. attribute:: TextResponse.encoding
@@ -749,15 +749,15 @@ TextResponse objects
        A string with the encoding of this response. The encoding is resolved by
        trying the following mechanisms, in order:
 
-       1. the encoding passed in the constructor ``encoding`` argument
+       1. the encoding passed in the constructor ``encoding`` argument;
 
-       2. the encoding declared in the Content-Type HTTP header. If this
+       2. the encoding declared in the ``Content-Type`` HTTP header. If this
           encoding is not valid (ie. unknown), it is ignored and the next
-          resolution mechanism is tried.
+          resolution mechanism is tried;
 
-       3. the encoding declared in the response body. The TextResponse class
+       3. the encoding declared in the response body. The :class:`TextResponse` class
           doesn't provide any special functionality for this. However, the
-          :class:`HtmlResponse` and :class:`XmlResponse` classes do.
+          :class:`HtmlResponse` and :class:`XmlResponse` classes do;
 
        4. the encoding inferred by looking at the response body. This is the more
           fragile method but also the last one tried.
