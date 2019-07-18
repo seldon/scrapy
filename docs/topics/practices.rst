@@ -200,11 +200,11 @@ If you have many spiders, the obvious way to distribute the load is to setup
 many Scrapyd instances and distribute spider runs among those.
 
 If you instead want to run a single (big) spider through many machines, what
-you usually do is partition the urls to crawl and send them to each separate
+you usually do is partition the URLs to crawl and send them to each separate
 spider. Here is a concrete example:
 
-First, you prepare the list of urls to crawl and put them into separate
-files/urls::
+First, you prepare the list of URLs to crawl and put them into separate
+files/URLs::
 
     http://somedomain.com/urls-to-crawl/spider1/part1.list
     http://somedomain.com/urls-to-crawl/spider1/part2.list
@@ -231,18 +231,18 @@ consider contacting `commercial support`_ if in doubt.
 Here are some tips to keep in mind when dealing with these kinds of sites:
 
 * rotate your user agent from a pool of well-known ones from browsers (google
-  around to get a list of them)
+  around to get a list of them);
 * disable cookies (see :setting:`COOKIES_ENABLED`) as some sites may use
-  cookies to spot bot behaviour
-* use download delays (2 or higher). See :setting:`DOWNLOAD_DELAY` setting.
+  cookies to spot bot behaviour;
+* use download delays (2 or higher). See :setting:`DOWNLOAD_DELAY` setting;
 * if possible, use `Google cache`_ to fetch pages, instead of hitting the sites
-  directly
+  directly;
 * use a pool of rotating IPs. For example, the free `Tor project`_ or paid
   services like `ProxyMesh`_. An open source alternative is `scrapoxy`_, a
-  super proxy that you can attach your own proxies to.
+  super proxy that you can attach your own proxies to;
 * use a highly distributed downloader that circumvents bans internally, so you
   can just focus on parsing clean pages. One example of such downloaders is
-  `Crawlera`_
+  `Crawlera`_.
 
 If you are still unable to prevent your bot getting banned, consider contacting
 `commercial support`_.
