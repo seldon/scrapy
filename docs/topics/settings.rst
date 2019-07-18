@@ -11,7 +11,7 @@ The infrastructure of the settings provides a global namespace of key-value mapp
 that the code can use to pull configuration values from. The settings can be
 populated through different mechanisms, which are described below.
 
-The settings are also the mechanism for selecting the currently active Scrapy
+Settings is also the mechanism for selecting the currently active Scrapy
 project (in case you have many).
 
 For a list of available built-in settings see: :ref:`topics-settings-ref`.
@@ -38,10 +38,10 @@ different precedence. Here is the list of them in decreasing order of
 precedence:
 
  1. Command line options (most precedence)
- 2. Settings per-spider
+ 2. Per-spider settings 
  3. Project settings module
- 4. Default settings per-command
- 5. Default global settings (less precedence)
+ 4. Per-command default settings 
+ 5. Default global settings (least precedence)
 
 The population of these settings sources is taken care of internally, but a
 manual handling is possible using API calls. See the
@@ -80,7 +80,7 @@ do so by setting their :attr:`~scrapy.spiders.Spider.custom_settings` attribute:
 --------------------------
 
 The project settings module is the standard configuration file for your Scrapy
-project, it's where most of your custom settings will be populated. For a
+project: it's where most of your custom settings will be populated. For a
 standard Scrapy project, this means you'll be adding or changing the settings
 in the ``settings.py`` file created for your project.
 
@@ -89,7 +89,7 @@ in the ``settings.py`` file created for your project.
 
 Each :doc:`Scrapy tool </topics/commands>` command can have its own default
 settings, which override the global default settings. Those custom command
-settings are specified in the ``default_settings`` attribute of the command
+settings are specified in the :attr:`default_settings` attribute of the command
 class.
 
 5. Default global settings
@@ -113,13 +113,13 @@ In a spider, the settings are available through ``self.settings``::
             print("Existing settings: %s" % self.settings.attributes.keys())
 
 .. note::
-    The ``settings`` attribute is set in the base Spider class after the spider
+    The ``settings`` attribute is set in the base :class:`Spider` class after the spider
     is initialized.  If you want to use the settings before the initialization
-    (e.g., in your spider's ``__init__()`` method), you'll need to override the
+    (e.g., in your spider's :meth:`__init__()` method), you'll need to override the
     :meth:`~scrapy.spiders.Spider.from_crawler` method.
 
 Settings can be accessed through the :attr:`scrapy.crawler.Crawler.settings`
-attribute of the Crawler that is passed to ``from_crawler`` method in
+attribute of the Crawler that is passed to :meth:`from_crawler` method in
 extensions, middlewares and item pipelines::
 
     class MyExtension(object):
