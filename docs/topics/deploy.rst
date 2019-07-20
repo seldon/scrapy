@@ -24,7 +24,7 @@ Deploying to a Scrapyd Server
 `Scrapyd`_ is an open source application to run Scrapy spiders. It provides
 a server with HTTP API, capable of running and monitoring Scrapy spiders.
 
-To deploy spiders to Scrapyd, you can use the scrapyd-deploy tool provided by
+To deploy spiders to Scrapyd, you can use the ``scrapyd-deploy`` tool provided by
 the `scrapyd-client`_ package. Please refer to the `scrapyd-deploy
 documentation`_ for more information.
 
