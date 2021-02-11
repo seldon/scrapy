@@ -5,7 +5,7 @@ Debugging Spiders
 =================
 
 This document explains the most common techniques for debugging spiders.
-Consider the following scrapy spider below::
+Consider the following Scrapy spider below::
 
     import scrapy
     from myproject.items import MyItem
@@ -35,7 +35,7 @@ Consider the following scrapy spider below::
             return item
 
 Basically this is a simple spider which parses two pages of items (the
-start_urls). Items also have a details page with additional information, so we
+:attr:`start_urls`). Items also have a details page with additional information, so we
 use the ``cb_kwargs`` functionality of :class:`~scrapy.http.Request` to pass a
 partially populated item.
 
@@ -48,7 +48,7 @@ The most basic way of checking the output of your spider is to use the
 of the spider at the method level. It has the advantage of being flexible and
 simple to use, but does not allow debugging code inside a method.
 
-In order to see the item scraped from a specific url::
+In order to see the item scraped from a specific URL::
 
     $ scrapy parse --spider=myspider -c parse_item -d 2 <item_url>
     [ ... scrapy log lines crawling example.com spider ... ]
@@ -80,7 +80,7 @@ Using the ``--verbose`` or ``-v`` option we can see the status at each depth lev
     # Requests  -----------------------------------------------------------------
     []
 
-Checking items scraped from a single start_url, can also be easily achieved
+Checking items scraped from a single :attr:`start_url` can also be easily achieved
 using::
 
     $ scrapy parse --spider=myspider -d 3 'http://example.com/page1'
@@ -91,7 +91,7 @@ Scrapy Shell
 
 While the :command:`parse` command is very useful for checking behaviour of a
 spider, it is of little help to check what happens inside a callback, besides
-showing the response received and the output. How to debug the situation when
+showing the response received and the output. How to debug a situation when
 ``parse_details`` sometimes receives no item?
 
 Fortunately, the :command:`shell` is your bread and butter in this case (see
@@ -106,12 +106,10 @@ Fortunately, the :command:`shell` is your bread and butter in this case (see
         else:
             inspect_response(response, self)
 
-See also: :ref:`topics-shell-inspect-response`.
-
 Open in browser
 ===============
 
-Sometimes you just want to see how a certain response looks in a browser, you
+Sometimes you just want to see how a certain response looks in a browser: you
 can use the ``open_in_browser`` function for that. Here is an example of how
 you would use it::
 

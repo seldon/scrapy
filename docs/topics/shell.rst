@@ -95,14 +95,14 @@ convenience.
 Available Shortcuts
 -------------------
 
- * ``shelp()`` - print a help with the list of available objects and shortcuts
+ * ``shelp()`` - print a help with the list of available objects and shortcuts;
 
  * ``fetch(url[, redirect=True])`` - fetch a new response from the given
    URL and update all related objects accordingly. You can optionaly ask for
-   HTTP 3xx redirections to not be followed by passing ``redirect=False``
+   HTTP 3xx redirections to not be followed by passing ``redirect=False``;
 
  * ``fetch(request)`` - fetch a new response from the given request and
-   update all related objects accordingly.
+   update all related objects accordingly;
 
  * ``view(response)`` - open the given response in your local web browser, for
    inspection. This will add a `\<base\> tag`_ to the response body in order
@@ -122,21 +122,21 @@ content).
 
 Those objects are:
 
- * ``crawler`` - the current :class:`~scrapy.crawler.Crawler` object.
+ * ``crawler`` - the current :class:`~scrapy.crawler.Crawler` object;
 
  * ``spider`` - the Spider which is known to handle the URL, or a
    :class:`~scrapy.spiders.Spider` object if there is no spider found for
-   the current URL
+   the current URL;
 
  * ``request`` - a :class:`~scrapy.http.Request` object of the last fetched
    page. You can modify this request using :meth:`~scrapy.http.Request.replace`
    or fetch a new request (without leaving the shell) using the ``fetch``
-   shortcut.
+   shortcut;
 
  * ``response`` - a :class:`~scrapy.http.Response` object containing the last
-   fetched page
+   fetched page;
 
- * ``settings`` - the current :ref:`Scrapy settings <topics-settings>`
+ * ``settings`` - the current :ref:`Scrapy settings <topics-settings>`.
 
 Example of shell session
 ========================

@@ -352,7 +352,7 @@ CrawlSpider
    it's generic enough for several cases, so you can start from it and override it
    as needed for more custom functionality, or just implement your own spider.
 
-   Apart from the attributes inherited from Spider (that you must
+   Apart from the attributes inherited from :class:`Spider` (that you must
    specify), this class supports a new attribute:
 
    .. attribute:: rules
@@ -366,7 +366,7 @@ CrawlSpider
 
    .. method:: parse_start_url(response)
 
-      This method is called for the start_urls responses. It allows to parse
+      This method is called for the :meth:`start_urls` responses. It allows to parse
       the initial responses and must return either an
       :class:`~scrapy.item.Item` object, a :class:`~scrapy.http.Request`
       object, or an iterable containing any of them.
@@ -534,7 +534,7 @@ XMLFeedSpider
         spider, and it's intended to perform any last time processing required
         before returning the results to the framework core, for example setting the
         item IDs. It receives a list of results and the response which originated
-        those results. It must return a list of results (Items or Requests).
+        those results. It must return a list of results (:class:`Items` or :class:`Requests`).
 
 
 XMLFeedSpider example
@@ -570,18 +570,20 @@ CSVFeedSpider
 
 .. class:: CSVFeedSpider
 
-   This spider is very similar to the XMLFeedSpider, except that it iterates
+   This spider is very similar to the :class:`XMLFeedSpider`, except that it iterates
    over rows, instead of nodes. The method that gets called in each iteration
    is :meth:`parse_row`.
 
    .. attribute:: delimiter
 
-       A string with the separator character for each field in the CSV file
+       A string with the separator character for each field in the CSV file.
+       
        Defaults to ``','`` (comma).
 
    .. attribute:: quotechar
 
-       A string with the enclosure character for each field in the CSV file
+       A string with the enclosure character for each field in the CSV file.
+       
        Defaults to ``'"'`` (quotation mark).
 
    .. attribute:: headers
@@ -627,7 +629,7 @@ SitemapSpider
 
 .. class:: SitemapSpider
 
-    SitemapSpider allows you to crawl a site by discovering the URLs using
+    :class:`SitemapSpider` allows you to crawl a site by discovering the URLs using
     `Sitemaps`_.
 
     It supports nested sitemaps and discovering sitemap urls from
@@ -647,7 +649,7 @@ SitemapSpider
         * ``regex`` is a regular expression to match urls extracted from sitemaps.
           ``regex`` can be either a str or a compiled regex object.
 
-        * callback is the callback to use for processing the urls that match
+        * ``callback`` is the callback to use for processing the urls that match
           the regular expression. ``callback`` can be a string (indicating the
           name of a spider method) or a callable.
 
@@ -724,7 +726,7 @@ SitemapSpider
 
         It's important to notice that:
 
-        - as the loc attribute is required, entries without this tag are discarded
+        - as the ``loc`` attribute is required, entries without this tag are discarded
         - alternate links are stored in a list with the key ``alternate``
           (see ``sitemap_alternate_links``)
         - namespaces are removed, so lxml tags named as ``{namespace}tagname`` become only ``tagname``
@@ -780,7 +782,7 @@ whose url contains ``/sitemap_shop``::
         def parse_shop(self, response):
             pass # ... scrape shop here ...
 
-Combine SitemapSpider with other sources of urls::
+Combine :class:`SitemapSpider` with other sources of urls::
 
     from scrapy.spiders import SitemapSpider
 

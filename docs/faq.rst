@@ -260,7 +260,7 @@ To dump into a XML file::
 
     scrapy crawl myspider -o items.xml
 
-For more information see :ref:`topics-feed-exports`
+For more information see :ref:`topics-feed-exports`.
 
 What's this huge cryptic ``__VIEWSTATE`` parameter used in some forms?
 ----------------------------------------------------------------------
@@ -316,18 +316,18 @@ can be used to configure your spider. There is no strict rule that mandates to
 use one or the other, but settings are more suited for parameters that, once
 set, don't change much, while spider arguments are meant to change more often,
 even on each spider run and sometimes are required for the spider to run at all
-(for example, to set the start url of a spider).
+(for example, to set the start URL of a spider).
 
 To illustrate with an example, assuming you have a spider that needs to log
 into a site to scrape data, and you only want to scrape data from a certain
 section of the site (which varies each time). In that case, the credentials to
-log in would be settings, while the url of the section to scrape would be a
+log in would be settings, while the URL of the section to scrape would be a
 spider argument.
 
 I'm scraping a XML document and my XPath selector doesn't return any items
 --------------------------------------------------------------------------
 
-You may need to remove namespaces. See :ref:`removing-namespaces`.
+You may need to remove namespaces: see :ref:`removing-namespaces`.
 
 How to split an item into multiple items in an item pipeline?
 -------------------------------------------------------------
@@ -336,7 +336,7 @@ How to split an item into multiple items in an item pipeline?
 input item. :ref:`Create a spider middleware <custom-spider-middleware>`
 instead, and use its
 :meth:`~scrapy.spidermiddlewares.SpiderMiddleware.process_spider_output`
-method for this puspose. For example::
+method for this purpose. For example::
 
     from copy import deepcopy
 

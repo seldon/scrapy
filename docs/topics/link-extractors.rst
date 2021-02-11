@@ -53,59 +53,59 @@ LxmlLinkExtractor
 
 .. class:: LxmlLinkExtractor(allow=(), deny=(), allow_domains=(), deny_domains=(), deny_extensions=None, restrict_xpaths=(), restrict_css=(), tags=('a', 'area'), attrs=('href',), canonicalize=False, unique=True, process_value=None, strip=True)
 
-    LxmlLinkExtractor is the recommended link extractor with handy filtering
-    options. It is implemented using lxml's robust HTMLParser.
+    :class:`~.LxmlLinkExtractor` is the recommended link extractor with handy filtering
+    options. It is implemented using lxml's robust ``HTMLParser``.
 
     :param allow: a single regular expression (or list of regular expressions)
         that the (absolute) urls must match in order to be extracted. If not
-        given (or empty), it will match all links.
+        given (or empty), it will match all links;
     :type allow: a regular expression (or list of)
 
     :param deny: a single regular expression (or list of regular expressions)
         that the (absolute) urls must match in order to be excluded (ie. not
         extracted). It has precedence over the ``allow`` parameter. If not
-        given (or empty) it won't exclude any links.
+        given (or empty) it won't exclude any links;
     :type deny: a regular expression (or list of)
 
     :param allow_domains: a single value or a list of string containing
-        domains which will be considered for extracting the links
+        domains which will be considered for extracting the links;
     :type allow_domains: str or list
 
     :param deny_domains: a single value or a list of strings containing
-        domains which won't be considered for extracting the links
+        domains which won't be considered for extracting the links;
     :type deny_domains: str or list
 
     :param deny_extensions: a single value or list of strings containing
         extensions that should be ignored when extracting links.
         If not given, it will default to the
         ``IGNORED_EXTENSIONS`` list defined in the
-        `scrapy.linkextractors`_ package.
+        `scrapy.linkextractors`_ package;
     :type deny_extensions: list
 
     :param restrict_xpaths: is an XPath (or list of XPath's) which defines
         regions inside the response where links should be extracted from.
         If given, only the text selected by those XPath will be scanned for
-        links. See examples below.
+        link (see examples below);
     :type restrict_xpaths: str or list
 
     :param restrict_css: a CSS selector (or list of selectors) which defines
         regions inside the response where links should be extracted from.
-        Has the same behaviour as ``restrict_xpaths``.
+        Has the same behaviour as ``restrict_xpaths``;
     :type restrict_css: str or list
 
     :param restrict_text: a single regular expression (or list of regular expressions)
         that the link's text must match in order to be extracted. If not
         given (or empty), it will match all links. If a list of regular expressions is
-        given, the link will be extracted if it matches at least one.
+        given, the link will be extracted if it matches at least one;
     :type restrict_text: a regular expression (or list of)
 
     :param tags: a tag or a list of tags to consider when extracting links.
-        Defaults to ``('a', 'area')``.
+        Defaults to ``('a', 'area')``;
     :type tags: str or list
 
     :param attrs: an attribute or list of attributes which should be considered when looking
         for links to extract (only for those tags specified in the ``tags``
-        parameter). Defaults to ``('href',)``
+        parameter). Defaults to ``('href',)``;
     :type attrs: list
 
     :param canonicalize: canonicalize each extracted url (using
@@ -114,17 +114,17 @@ LxmlLinkExtractor
         it can change the URL visible at server side, so the response can be
         different for requests with canonicalized and raw URLs. If you're
         using LinkExtractor to follow links it is more robust to
-        keep the default ``canonicalize=False``.
+        keep the default ``canonicalize=False``;
     :type canonicalize: boolean
 
     :param unique: whether duplicate filtering should be applied to extracted
-        links.
+        links;
     :type unique: boolean
 
     :param process_value: a function which receives each value extracted from
         the tag and attributes scanned and can modify the value and return a
         new one, or return ``None`` to ignore the link altogether. If not
-        given, ``process_value`` defaults to ``lambda x: x``.
+        given, ``process_value`` defaults to ``lambda x: x``;
 
         .. highlight:: html
 

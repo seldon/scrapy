@@ -208,7 +208,7 @@ HTTP 404 and 500 responses, and you want to hide all messages like this::
 
 The first thing to note is a logger name - it is in brackets:
 ``[scrapy.spidermiddlewares.httperror]``. If you get just ``[scrapy]`` then
-:setting:`LOG_SHORT_NAMES` is likely set to True; set it to False and re-run
+:setting:`LOG_SHORT_NAMES` is likely set to ``True``; set it to ``False`` and re-run
 the crawl.
 
 Next, we can see that the message has INFO level. To hide it

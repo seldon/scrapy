@@ -106,7 +106,7 @@ Once you have a response with the desired data, how you extract the desired
 data from it depends on the type of response:
 
 -   If the response is HTML or XML, use :ref:`selectors
-    <topics-selectors>` as usual.
+    <topics-selectors>` as usual;
 
 -   If the response is JSON, use `json.loads`_ to load the desired data from
     :attr:`response.text <scrapy.http.TextResponse.text>`::
@@ -121,7 +121,7 @@ data from it depends on the type of response:
         selector = Selector(data['html'])
 
 -   If the response is JavaScript, or HTML with a ``<script/>`` element
-    containing the desired data, see :ref:`topics-parsing-javascript`.
+    containing the desired data, see :ref:`topics-parsing-javascript`;
 
 -   If the response is CSS, use a `regular expression`_ to extract the desired
     data from :attr:`response.text <scrapy.http.TextResponse.text>`.
@@ -134,7 +134,7 @@ data from it depends on the type of response:
     solution to extract the desired data as text.
 
     For example, you can use pytesseract_. To read a table from a PDF,
-    `tabula-py`_ may be a better choice.
+    `tabula-py`_ may be a better choice;
 
 -   If the response is SVG, or HTML with embedded SVG containing the desired
     data, you may be able to extract the desired data using

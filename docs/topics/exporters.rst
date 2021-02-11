@@ -122,7 +122,7 @@ Example::
           def serialize_field(self, field, name, value):
               if field == 'price':
                   return '$ %s' % str(value)
-              return super(Product, self).serialize_field(field, name, value)
+              return super(ProductXmlExporter, self).serialize_field(field, name, value)
 
 .. _topics-exporters-reference:
 
@@ -190,13 +190,13 @@ BaseItemExporter
 
    .. attribute:: fields_to_export
 
-      A list with the name of the fields that will be exported, or None if you
-      want to export all fields. Defaults to None.
+      A list with the name of the fields that will be exported, or ``None`` if you
+      want to export all fields. Defaults to`` None``.
 
       Some exporters (like :class:`CsvItemExporter`) respect the order of the
       fields defined in this attribute.
 
-      Some exporters may require fields_to_export list in order to export the
+      Some exporters may require :attr:`fields_to_export list` in order to export the
       data properly when spiders return dicts (not :class:`~Item` instances).
 
    .. attribute:: export_empty_fields

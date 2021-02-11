@@ -4,20 +4,20 @@
 Debugging memory leaks
 ======================
 
-In Scrapy, objects such as Requests, Responses and Items have a finite
+In Scrapy, objects such as :class:`Requests`, :class:`Responses` and :class:`Items` have a finite
 lifetime: they are created, used for a while, and finally destroyed.
 
-From all those objects, the Request is probably the one with the longest
+From all those objects, :class:`Request` is probably the one with the longest
 lifetime, as it stays waiting in the Scheduler queue until it's time to process
 it. For more info see :ref:`topics-architecture`.
 
 As these Scrapy objects have a (rather long) lifetime, there is always the risk
-of accumulating them in memory without releasing them properly and thus causing
+of accumulating them in memory without releasing them properly, thus causing
 what is known as a "memory leak".
 
 To help debugging memory leaks, Scrapy provides a built-in mechanism for
-tracking objects references called :ref:`trackref <topics-leaks-trackrefs>`,
-and you can also use a third-party library called :ref:`Guppy
+tracking objects references called :ref:`trackref <topics-leaks-trackrefs>`;
+you can also use a third-party library called :ref:`Guppy
 <topics-leaks-guppy>` for more advanced memory debugging (see below for more
 info). Both mechanisms must be used from the :ref:`Telnet Console
 <topics-telnetconsole>`.
@@ -25,20 +25,20 @@ info). Both mechanisms must be used from the :ref:`Telnet Console
 Common causes of memory leaks
 =============================
 
-It happens quite often (sometimes by accident, sometimes on purpose) that the
-Scrapy developer passes objects referenced in Requests (for example, using the
+It happens quite often (sometimes by accident, sometimes on purpose) that 
+Scrapy developers pass objects referenced in :class:`Requests` (for example, using
 :attr:`~scrapy.http.Request.cb_kwargs` or :attr:`~scrapy.http.Request.meta`
-attributes or the request callback function) and that effectively bounds the
+attributes or the request callback function), that effectively bounds the
 lifetime of those referenced objects to the lifetime of the Request. This is,
 by far, the most common cause of memory leaks in Scrapy projects, and a quite
 difficult one to debug for newcomers.
 
-In big projects, the spiders are typically written by different people and some
-of those spiders could be "leaking" and thus affecting the rest of the other
+In big projects, spiders are typically written by different people: some
+of those spiders could be "leaking", thus affecting the rest of the other
 (well-written) spiders when they get to run concurrently, which, in turn,
 affects the whole crawling process.
 
-The leak could also come from a custom middleware, pipeline or extension that
+Leaks could also come from a custom middleware, pipeline or extension that
 you have written, if you are not releasing the (previously allocated) resources
 properly. For example, allocating resources on :signal:`spider_opened`
 but not releasing them on :signal:`spider_closed` may cause problems if
@@ -61,11 +61,11 @@ Debugging memory leaks with ``trackref``
 ========================================
 
 :mod:`trackref` is a module provided by Scrapy to debug the most common cases of
-memory leaks. It basically tracks the references to all live Requests,
-Responses, Item and Selector objects.
+memory leaks. It basically tracks the references to all live :class:`Requests`,
+:class:`Responses`, :class:`Item` and :class:`Selector` objects.
 
 You can enter the telnet console and inspect how many objects (of the classes
-mentioned above) are currently alive using the ``prefs()`` function which is an
+mentioned above) are currently alive using the :func:`prefs()` function which is an
 alias to the :func:`~scrapy.utils.trackref.print_live_refs` function::
 
     telnet localhost 6023
@@ -86,8 +86,7 @@ You can get the oldest object of each class using the
 
 Which objects are tracked?
 --------------------------
-
-The objects tracked by ``trackrefs`` are all from these classes (and all its
+Objects tracked by :mod:`trackref` are instances of the following classes (and all their
 subclasses):
 
 * :class:`scrapy.http.Request`
@@ -106,14 +105,14 @@ Suppose we have some spider with a line similar to this one::
                    callback=self.parse, cb_kwargs={'referer': response})
 
 That line is passing a response reference inside a request which effectively
-ties the response lifetime to the requests' one, and that would definitely
+ties the response lifetime to the request's one, and that would definitely
 cause memory leaks.
 
 Let's see how we can discover the cause (without knowing it
-a-priori, of course) by using the ``trackref`` tool.
+a-priori, of course) by using the :mod:`trackref` tool.
 
-After the crawler is running for a few minutes and we notice its memory usage
-has grown a lot, we can enter its telnet console and check the live
+After the crawler is running for a few minutes, we notice its memory usage
+has grown a lot; we can enter its telnet console and check the live
 references::
 
     >>> prefs()
@@ -126,7 +125,7 @@ references::
 
 The fact that there are so many live responses (and that they're so old) is
 definitely suspicious, as responses should have a relatively short lifetime
-compared to Requests. The number of responses is similar to the number
+compared to requests. The number of responses is similar to the number
 of requests, so it looks like they are tied in a some way. We can now go
 and check the code of the spider to discover the nasty line that is
 generating the leaks (passing response references inside requests).
@@ -154,7 +153,7 @@ Too many spiders?
 If your project has too many spiders executed in parallel,
 the output of :func:`prefs()` can be difficult to read.
 For this reason, that function has a ``ignore`` argument which can be used to
-ignore a particular class (and all its subclases). For
+ignore a particular class (and all its subclasses). For
 example, this won't show any live references to spiders::
 
     >>> from scrapy.spiders import Spider
@@ -166,7 +165,7 @@ example, this won't show any live references to spiders::
 scrapy.utils.trackref module
 ----------------------------
 
-Here are the functions available in the :mod:`~scrapy.utils.trackref` module.
+Here are the functions available in the :mod:`~scrapy.utils.trackref` module:
 
 .. class:: object_ref
 
@@ -200,9 +199,9 @@ Debugging memory leaks with Guppy
 
 ``trackref`` provides a very convenient mechanism for tracking down memory
 leaks, but it only keeps track of the objects that are more likely to cause
-memory leaks (Requests, Responses, Items, and Selectors). However, there are
-other cases where the memory leaks could come from other (more or less obscure)
-objects. If this is your case, and you can't find your leaks using ``trackref``,
+memory leaks (:class:`Requests`, :class:`Responses`, :class:`Items`, and :class:`Selectors`). However, there are
+other cases where memory leaks could come from other (more or less obscure)
+objects. If this is your case, and you can't find your leaks using :mod:`trackref`,
 you still have another resource: the `Guppy library`_.
 If you're using Python3, see :ref:`topics-leaks-muppy`.
 
@@ -212,7 +211,7 @@ If you use ``pip``, you can install Guppy with the following command::
 
     pip install guppy
 
-The telnet console also comes with a built-in shortcut (``hpy``) for accessing
+The telnet console also comes with a built-in shortcut (:func:`hpy`) for accessing
 Guppy heap objects. Here's an example to view all Python objects available in
 the heap using Guppy::
 

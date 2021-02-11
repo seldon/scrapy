@@ -117,7 +117,7 @@ format::
            self.file.write(line)
            return item
 
-.. note:: The purpose of JsonWriterPipeline is just to introduce how to write
+.. note:: The purpose of :class:`JsonWriterPipeline` is just to introduce how to write
    item pipelines. If you really want to store all scraped items into a JSON
    file you should use the :ref:`Feed exports <topics-feed-exports>`.
 
@@ -129,7 +129,7 @@ MongoDB address and database name are specified in Scrapy settings;
 MongoDB collection is named after item class.
 
 The main point of this example is to show how to use :meth:`from_crawler`
-method and how to clean up the resources properly.::
+method and how to clean up the resources properly::
 
     import pymongo
 
