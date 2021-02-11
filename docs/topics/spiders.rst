@@ -182,7 +182,7 @@ scrapy.Spider
 
        This method, as well as any other Request callback, must return an
        iterable of :class:`~scrapy.http.Request` and/or
-       dicts or :class:`~scrapy.item.Item` objects.
+       dicts of :class:`~scrapy.item.Item` objects.
 
        :param response: the response to parse
        :type response: :class:`~scrapy.http.Response`
@@ -690,7 +690,7 @@ SitemapSpider
 
     .. method:: sitemap_filter(entries)
 
-        This is a filter funtion that could be overridden to select sitemap entries
+        This is a filter function that could be overridden to select sitemap entries
         based on their attributes.
 
         For example::
